@@ -58,8 +58,8 @@ const sketch = () => {
     const freq = 4
     const amp = 100
 
-    range(0, 50)
-      .map(n => ratio(n, 50))
+    range(0, 48)
+      .map(n => ratio(n, 48))
       .map((t, i) => {
         console.log(t * (height - 2 * MARGIN[1]))
         createRow(300)
@@ -68,15 +68,15 @@ const sketch = () => {
             const [x, y] = mult(margin(MARGIN, p), dims)
             
             const freq = random.noise1D(t, 3) * Math.cos(t * Math.PI * 2) * lerp(4, 15, t)
-            c.strokeStyle = `hsl(0, 0%, ${(1 - normalise(random.noise1D(t, freq))) * 100}%)`
+            c.strokeStyle = `hsl(${lerp(0, 360, t * u * normalise(random.noise1D(t, freq)))}, 50%, ${(1 - normalise(random.noise1D(t, freq))) * 100}%)`
             
             c.save()
             c.translate(x, y + (t - MARGIN[1]) * height + amp * Math.sin(freq * u * Math.PI * 2))
             c.beginPath()
             // c.arc(0, 0, normalise(random.noise1D(t, 3)) * 3, 0, Math.PI * 2)
             c.moveTo(0, 0)
-            c.lineTo(32 * Math.cos(freq * u * Math.PI * 2 - Math.PI / 2), 32 * Math.sin(freq * u * Math.PI * 2 - Math.PI / 2))
-            c.lineWidth = normalise(random.noise1D(t, 3)) * 3 + 1
+            c.lineWidth = normalise(random.noise1D(t, 3)) * 6 + 1
+            c.lineTo(64 * normalise(random.noise1D(u, 3)) * Math.cos(freq * u * Math.PI * 2 - Math.PI / 2), 64 * normalise(random.noise1D(u, 3)) * Math.sin(freq * u * Math.PI * 2 - Math.PI / 2))
             c.stroke()
             // c.font = `${normalise(random.noise1D(t, 3)) * 24}px "Iosevka SS05"`
             // c.fillText('!', 0, 0)
