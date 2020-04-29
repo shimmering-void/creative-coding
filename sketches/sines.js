@@ -52,7 +52,7 @@ const sketch = () => {
     console.log(lerp)
     const MARGIN = [0.1, 0.1]
     const dims = [width, height]
-    c.fillStyle = 'white';
+    c.fillStyle = 'black';
     c.fillRect(0, 0, width, height);
 
     const freq = 4
@@ -68,12 +68,16 @@ const sketch = () => {
             const [x, y] = mult(margin(MARGIN, p), dims)
             
             const freq = random.noise1D(t, 3) * Math.cos(t * Math.PI * 2) * lerp(4, 15, t)
-            c.fillStyle = `hsl(0, 0%, ${normalise(random.noise1D(t, freq)) * 100}%)`
+            c.strokeStyle = `hsl(0, 0%, ${(1 - normalise(random.noise1D(t, freq))) * 100}%)`
             
             c.save()
             c.translate(x, y + (t - MARGIN[1]) * height + amp * Math.sin(freq * u * Math.PI * 2))
             c.beginPath()
-            c.arc(0, 0, normalise(random.noise1D(t, 3)) * 3, 0, Math.PI * 2)
+            // c.arc(0, 0, normalise(random.noise1D(t, 3)) * 3, 0, Math.PI * 2)
+            c.moveTo(0, 0)
+            c.lineTo(32 * Math.cos(freq * u * Math.PI * 2 - Math.PI / 2), 32 * Math.sin(freq * u * Math.PI * 2 - Math.PI / 2))
+            c.lineWidth = normalise(random.noise1D(t, 3)) * 3 + 1
+            c.stroke()
             // c.font = `${normalise(random.noise1D(t, 3)) * 24}px "Iosevka SS05"`
             // c.fillText('!', 0, 0)
             c.fill()
