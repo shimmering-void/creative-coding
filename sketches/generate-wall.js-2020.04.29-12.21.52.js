@@ -9,8 +9,8 @@ const settings = {
 };
 
 const seed = random.getRandomSeed()
-console.log(`seed: ${seed}`)
-random.setSeed(seed)
+random.setSeed('82317')
+console.log(`seed: ${random.getSeed()}`)
 
 const sketch = () => {
   const range = (min, max) => Array.from(new Array(max - min)).map((_, i) => i + min)
@@ -65,7 +65,7 @@ const sketch = () => {
         c.closePath()
         c.fillStyle = random.pick(palette)
         c.strokeStyle = 'white'
-        c.lineWidth = 10
+        c.lineWidth = 30
         c.fill()
         c.stroke()
         c.restore()
